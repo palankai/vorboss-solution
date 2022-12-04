@@ -1,0 +1,30 @@
+.table {
+  margin-left: auto;
+  margin-right: auto;
+}
+.row td {
+  padding: 3px 10px 3px 10px;
+  min-width: 80px;
+  background-color: #f7f7f7;
+}
+.row:nth-child(even) td {
+  background-color: #e7e7e7;
+}
+
+.orderId {
+  text-align: right;
+}
+.orderPlaced {
+  text-align: center;
+}
+.productName {
+  text-align: left;
+  font-weight: bold;
+}
+.price {
+  text-align: right;
+}
+.status {
+  text-align: right;
+  font-weight: bold;
+}

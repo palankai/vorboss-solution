@@ -1,0 +1,5 @@
+.statbox {
+  margin: 3em;
+  display: flex;
+  text-align: center;
+}

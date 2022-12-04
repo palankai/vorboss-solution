@@ -1,0 +1,6 @@
+services:
+  dashboard:
+    env_file:
+      - dashboard/.env
+    ports:
+      - 3000:3000

@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  dashboard:
+    image: dashboard:${BUILD_VERSION:-latest}
+    build: dashboard/
+    env_file: container.env

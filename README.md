@@ -1,5 +1,21 @@
 # Alice's Dashboard
 
+## TL;DR
+- Ensure a `dashboard/.env` file based on the [`dashboard/env-template.env` template](dashboard/env-template.env))
+- Run the `make` command which builds the docker image and starts the service
+- Open [localhost:3000](localhost:3000) (might take a few seconds to load first time) to see the dashboard (if it doesn't open automatically)
+- Run `make cleanup` to stop the service and remove the images
+
+**Make alternative**
+
+```shell
+docker-compose build
+docker-compose up -d
+open http://localhost:3000
+```
+
+## Context
+
 The "service" is part of an interview exercise.
 
 > Alice has recently started a business selling 3D printed jewellery for cats.
@@ -27,21 +43,68 @@ The "service" is part of an interview exercise.
 
 ## Development
 
-<!-- TODO -->
+Make a `dashboard/.env` file based on [dashboard/env-template.env](dashboard/env-template.env)
 
-### Technology
+_The code is written and tested on Apple M1, MacOS Monterey._
 
+**Requirements:**
+
+- `make` (4.4)
 - `NodeJS` v18.12.1 (npm v8.19.2)
 - `yarn` 1.22.19
-- `Typescript`
-- `NextJS`
-- `React`
+- `Typescript` 4.9.3
+- `NextJS` (13.0.6)
+- `React` (18.2.0)
 - Dependencies listed in `dashboard/package.json` and managed via `yarn`
-- Consult the `Makefile` for `make` commands
+
+**Important make commands:**
+
+- `make build` Builds docker image(s)
+- `make up` Start the service with all dependencies (In this case no dependency)
+- `make cleanup` Stop the service and removes the debris
+- `make precommit` Runs a couple of code checks (lint, prettier, tests, audit)
+
+Consult the [`Makefile`](Makefile) for `make` commands
+
+**Before each commit, run the `make precommit` command.**
+
+**Local development:**
+
+```shell
+cd dashboard
+yarn install
+yarn dev
+```
+
+Open [localhost:3000](localhost:3000)
+
+**Important yarn commands:**
+- `yarn install` - installs dependencies
+- `yarn dev` - starts dev server
+- `yarn test` - runs the tests
+- `yarn audit:fix` - checks and fixes vulnerabilities
+
+Consult the [`package.json`](dashboard/package.json) `scripts` section for further commands
+
+## Code Structure
+
+- [`/docs`](/docs/) - for service-level documents
+- [`/dashboard`](/dashboard/) - Service root (contains [`Dockerfile`](dashboard/Dockerfile) and [`package.json`](dashboard/package.json)
+- [`/dashboard/tests`](/dashboard/tests/) - Unit tests
+- [`/dashboard/src/frontend`](/dashboard/src/frontend/) - Components and Containers
+- [`/dashboard/src/backend`](/dashboard/src/backend/) - Contains backend-related code
+
+**Most important files**
+- **[`/dashboard/pages/api/dashboard.ts`](dashboard/pages/api/dashboard.ts) API served on http://localhost:3000/api/dashboard**
+- **[`/dashboard/pages/index.ts`](dashboard/pages/index.tsx) Rendered on http://localhost:3000/**
+- **[`/dashboard/src/dashboard.ts`](dashboard/src/dashboard.ts) Commonly used and shared interfaces**
 
 ## Testing
 
-<!-- TODO -->
+I use _Jest_ to test the core functionalities.
+I put the tests under the [`dashboard/tests`](dashboard/tests) folder.
+
+Run `yarn test` to run all the tests.
 
 ## Deployment
 
