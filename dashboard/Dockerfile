@@ -11,4 +11,5 @@ RUN yarn audit
 COPY . /opt
 RUN yarn build
 
+USER node
 CMD yarn start

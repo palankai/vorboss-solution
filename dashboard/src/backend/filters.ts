@@ -13,7 +13,7 @@ export class LastMonthOrderCounter {
     this.month = date.getMonth();
   }
 
-  value(): number {
+  numberOfOrders(): number {
     return this.counter;
   }
 
@@ -33,7 +33,7 @@ export class StatusCounter {
     this.status = status;
   }
 
-  value(): number {
+  numberOfOrders(): number {
     return this.counter;
   }
 
@@ -51,7 +51,7 @@ export class TotalRevenueAggregate {
     this.sum = new Decimal(0);
   }
 
-  value(): string {
+  revenue(): string {
     return this.sum.toFixed(2);
   }
 
@@ -61,22 +61,22 @@ export class TotalRevenueAggregate {
 }
 
 export class RecentOrders {
-  private orders: Order[];
+  private recentOrders: Order[];
   private limit: number;
 
   constructor(limit: number) {
     this.limit = limit;
-    this.orders = [];
+    this.recentOrders = [];
   }
 
-  value(): Order[] {
-    return [...this.orders].reverse();
+  orders(): Order[] {
+    return [...this.recentOrders].reverse();
   }
 
   update(order: Order) {
-    this.orders.push(order);
-    if (this.orders.length > this.limit) {
-      this.orders = this.orders.slice(-this.limit);
+    this.recentOrders.push(order);
+    if (this.recentOrders.length > this.limit) {
+      this.recentOrders = this.recentOrders.slice(-this.limit);
     }
   }
 }

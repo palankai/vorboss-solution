@@ -34,6 +34,7 @@ const Header = () => (
 
 const OrderTable = (props: { orders: Order[] }) => (
   <table className={styles.table}>
+    <caption className={styles.caption}>Recent orders</caption>
     <Header />
     <tbody>
       {props.orders.map((order) => (

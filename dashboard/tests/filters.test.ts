@@ -7,7 +7,7 @@ describe('LastMonthOrderCountFilter', () => {
   test('Without order', () => {
     const filter = new LastMonthOrderCounter(new Date('2022-12-25'));
 
-    expect(filter.value()).toEqual(0);
+    expect(filter.numberOfOrders()).toEqual(0);
   });
 
   test('With a matching order', () => {
@@ -18,7 +18,7 @@ describe('LastMonthOrderCountFilter', () => {
     });
     filter.update(order);
 
-    expect(filter.value()).toEqual(1);
+    expect(filter.numberOfOrders()).toEqual(1);
   });
 
   test('With a non matching order', () => {
@@ -29,7 +29,7 @@ describe('LastMonthOrderCountFilter', () => {
     });
     filter.update(order);
 
-    expect(filter.value()).toEqual(0);
+    expect(filter.numberOfOrders()).toEqual(0);
   });
 
   test('With a multiple orders', () => {
@@ -41,7 +41,7 @@ describe('LastMonthOrderCountFilter', () => {
     filter.update(makeOrder({ orderPlaced: new Date('2022-04-25') }));
     filter.update(makeOrder({ orderPlaced: new Date('2022-12-25') }));
 
-    expect(filter.value()).toEqual(3);
+    expect(filter.numberOfOrders()).toEqual(3);
   });
 });
 
@@ -49,7 +49,7 @@ describe('StatusCounter', () => {
   test('Without order', () => {
     const filter = new StatusCounter('shipped');
 
-    expect(filter.value()).toEqual(0);
+    expect(filter.numberOfOrders()).toEqual(0);
   });
 
   test('With a matching order', () => {
@@ -60,7 +60,7 @@ describe('StatusCounter', () => {
     });
     filter.update(order);
 
-    expect(filter.value()).toEqual(1);
+    expect(filter.numberOfOrders()).toEqual(1);
   });
 
   test('With a non matching order', () => {
@@ -71,7 +71,7 @@ describe('StatusCounter', () => {
     });
     filter.update(order);
 
-    expect(filter.value()).toEqual(0);
+    expect(filter.numberOfOrders()).toEqual(0);
   });
 
   test('With a multiple orders', () => {
@@ -83,7 +83,7 @@ describe('StatusCounter', () => {
     filter.update(makeOrder({ status: 'shipped' }));
     filter.update(makeOrder({ status: 'placed' }));
 
-    expect(filter.value()).toEqual(3);
+    expect(filter.numberOfOrders()).toEqual(3);
   });
 });
 
@@ -91,7 +91,7 @@ describe('TotalRevenueAggregate', () => {
   test('Without order', () => {
     const filter = new TotalRevenueAggregate();
 
-    expect(filter.value()).toEqual('0.00');
+    expect(filter.revenue()).toEqual('0.00');
   });
 
   test('With a single order', () => {
@@ -102,7 +102,7 @@ describe('TotalRevenueAggregate', () => {
     });
     filter.update(order);
 
-    expect(filter.value()).toEqual('12.33');
+    expect(filter.revenue()).toEqual('12.33');
   });
 
   test('With a multiple orders', () => {
@@ -113,7 +113,7 @@ describe('TotalRevenueAggregate', () => {
     filter.update(makeOrder({ price: '3.33' }));
     filter.update(makeOrder({ price: '4.33' }));
 
-    expect(filter.value()).toEqual('11.32');
+    expect(filter.revenue()).toEqual('11.32');
   });
 });
 
@@ -121,7 +121,7 @@ describe('RecentOrders', () => {
   test('Without order', () => {
     const filter = new RecentOrders(3);
 
-    expect(filter.value()).toHaveLength(0);
+    expect(filter.orders()).toHaveLength(0);
   });
 
   test('With a less than a limit orders', () => {
@@ -130,7 +130,7 @@ describe('RecentOrders', () => {
     filter.update(makeOrder());
     filter.update(makeOrder());
 
-    expect(filter.value()).toHaveLength(2);
+    expect(filter.orders()).toHaveLength(2);
   });
 
   test('With matching number of orders', () => {
@@ -140,7 +140,7 @@ describe('RecentOrders', () => {
     filter.update(makeOrder());
     filter.update(makeOrder());
 
-    expect(filter.value()).toHaveLength(3);
+    expect(filter.orders()).toHaveLength(3);
   });
 
   test('With more orders', () => {
@@ -154,7 +154,7 @@ describe('RecentOrders', () => {
     filter.update(makeOrder({ price: '12.33' }));
     filter.update(makeOrder({ price: '33.12' }));
 
-    expect(filter.value()).toHaveLength(3);
-    expect(filter.value()[0].price).toEqual('33.12');
+    expect(filter.orders()).toHaveLength(3);
+    expect(filter.orders()[0].price).toEqual('33.12');
   });
 });

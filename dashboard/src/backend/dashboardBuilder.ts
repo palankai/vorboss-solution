@@ -32,10 +32,10 @@ export async function buildDashboard(params: buildDashboardParams): Promise<Dash
 
   const dashboard: Dashboard = {
     totalOrderNumber,
-    totalOrderNumberThisMonth: lastMonthOrderCounter.value(),
-    numberOfOrdersInProgress: inProgressCounter.value(),
-    totalRevenue: totalRevenueAggregate.value(),
-    mostRecentOrders: recentOrders.value(),
+    totalOrderNumberThisMonth: lastMonthOrderCounter.numberOfOrders(),
+    numberOfOrdersInProgress: inProgressCounter.numberOfOrders(),
+    totalRevenue: totalRevenueAggregate.revenue(),
+    mostRecentOrders: recentOrders.orders(),
   };
   return dashboard;
 }
