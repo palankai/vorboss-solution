@@ -3,7 +3,7 @@
 ## TL;DR
 - Ensure a `dashboard/.env` file based on the [`dashboard/env-template.env` template](dashboard/env-template.env))
 - Run the `make` command which builds the docker image and starts the service
-- Open [localhost:3000](localhost:3000) (might take a few seconds to load first time) to see the dashboard (if it doesn't open automatically)
+- Open [http://localhost:3000](http://localhost:3000) (might take a few seconds to load the first time) to see the dashboard (if it doesn't open automatically)
 - Run `make cleanup` to stop the service and remove the images
 
 **Make alternative**
